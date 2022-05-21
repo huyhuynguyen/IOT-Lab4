@@ -20,7 +20,7 @@ const Log = new Schema({
         required: true
     },
     deviceId: {
-        type: 'String',
+        type: 'Number',
         required: true
     },
     ipAddress: {
