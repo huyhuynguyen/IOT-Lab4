@@ -2,6 +2,7 @@ const express = require('express')
 const expressLayouts = require('express-ejs-layouts')
 const route = require('./routes/index.js')
 const db = require('./config/db')
+require('dotenv').config()
 
 const app = express()
 const port = 5000

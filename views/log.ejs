@@ -22,17 +22,29 @@
                             </tr>
                         </thead>
                         <tbody class="log__table-body">
-                            <tr>
+                            <!-- <tr>
                                 <td>13832938</td>
                                 <td>192.168.1.1</td>
                                 <td>Wemos D1</td>
                                 <td>Nhiệt độ</td>
                                 <td>32</td>
                                 <td>30/04/2022</td>
-                            </tr>
+                            </tr> -->
                         </tbody>
                     </table>
                 </div>
+            </div>
+
+            <div class="log-pagination__container">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="page-item"><a class="page-link" href="/log?page=<%= currentPage > 1 ? currentPage - 1 : 1 %>">Previous</a></li>
+                        <% for (var i =1; i <=paginationNumber;  i++ ) { %>
+                        <br/>  <li class="page-item"><a class="page-link" href="/log?page=<%= i %>"><%= i %></a></li>
+                        <% } %>
+                        <li class="page-item"><a class="page-link" href="/log?page=<%= currentPage >= (paginationNumber + 1) ? paginationNumber + 1 : currentPage + 1 %>">Next</a></li>
+                    </ul>
+                </nav>
             </div>
         </div>
     </div>

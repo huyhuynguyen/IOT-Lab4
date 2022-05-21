@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-const aboutController = require('../controllers/MainController.js');
+const mainController = require('../controllers/MainController.js');
 
-router.get('/', aboutController.index);
+router.put('/sensor/:id', mainController.updateSensor);
+router.get('/', mainController.index);
 
 module.exports = router;

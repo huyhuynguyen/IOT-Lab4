@@ -110,3 +110,7 @@ body {
 .log__table thead {
   background-color: #d6d6d6;
 }
+
+.log-pagination__container {
+  margin-left: 50px;
+}
