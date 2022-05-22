@@ -2,7 +2,7 @@ const Log = require('../models/Log');
 
 class LogController {
     async index(req, res, next) {
-        const limit = process.env.LIMIT
+        const limit = process.env.LIMIT || 6
         let page = +req.query.page || 1
         if (page < 1)
             page = 1

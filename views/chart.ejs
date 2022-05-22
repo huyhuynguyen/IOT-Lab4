@@ -80,7 +80,7 @@
         });
     }
 
-    drawChart('myChart', 'pie', light.map(item => item.value));
-    drawChart('myChart2', 'bar', humi.map(item => item.value));
-    drawChart('myChart3', 'line', temp.map(item => item.value));
+    drawChart('myChart', 'pie', light.map(item => item.value).reverse());
+    drawChart('myChart2', 'bar', humi.map(item => item.value).reverse());
+    drawChart('myChart3', 'line', temp.map(item => item.value).reverse());
 </script>
