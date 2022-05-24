@@ -29,7 +29,7 @@ class LogController {
         const log = new Log(
             {
                 ...req.body,
-                date: now.$d
+                date: new Date(now.toISOString())
             }
         )
         await log.save()
