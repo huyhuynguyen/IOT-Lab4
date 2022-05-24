@@ -28,7 +28,7 @@
     const sensors = JSON.parse('<%- JSON.stringify(sensors) %>');
 	const leds = JSON.parse('<%- JSON.stringify(leds) %>');
     const sensorsTable = document.querySelector('.sensor-table__value');
-		const ledContainer = document.querySelector('.led__container');
+	const ledContainer = document.querySelector('.led__container');
 
     const sensorsHTML = sensors.map(sensor => {
         return `
@@ -44,22 +44,32 @@
         `;
     }).join('');
 
-		const ledsHTML = leds.map(led => {
-			const ledObj = {
-				label: led.status ? 'On' : 'Off',
-				className: led.status ? 'led-on' : 'led-off'
-			}
-			return `
-				<div class="led__device">
-						<p>${led.name}</p>
-						<div>
-								<button class="btn-led ${ledObj.className}">
-									${ledObj.label}
-								</button>
-						</div>
-				</div>
-			`;
-		}).join('');
-		sensorsTable.innerHTML = sensorsHTML;
-		ledContainer.innerHTML = ledsHTML;
+    const ledsHTML = leds.map(led => {
+        const ledObj = {
+            label: led.status ? 'On' : 'Off',
+            className: led.status ? 'led-on' : 'led-off'
+        }
+        return `
+            <div class="led__device">
+                <p>${led.name}</p>
+                <div>
+                        <button class="btn-led ${ledObj.className}">
+                            ${ledObj.label}
+                        </button>
+                </div>
+            </div>
+        `;
+    }).join('');
+    sensorsTable.innerHTML = sensorsHTML;
+    ledContainer.innerHTML = ledsHTML;
+
+    // MQTTConnect()
+
+    // const btnLeds = document.querySelectorAll('.btn-led')
+    // // console.log(btnLeds);
+    // btnLeds.forEach(btnLed => {
+    //     btnLed.addEventListener('click', (e) => {
+    //         console.log(e.target);
+    //     })
+    // })
 </script>

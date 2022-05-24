@@ -1,4 +1,6 @@
 const Log = require('../models/Log');
+const dayjs = require('dayjs');
+
 
 class LogController {
     async index(req, res, next) {
@@ -23,7 +25,13 @@ class LogController {
     }
 
     async create(req, res, next) {
-        const log = new Log(req.body)
+        const now = dayjs().add(7, 'h')
+        const log = new Log(
+            {
+                ...req.body,
+                date: now.$d
+            }
+        )
         await log.save()
         return res.json(log)
     }

@@ -2,7 +2,6 @@ const Sensor = require('../models/Sensor');
 const Led = require('../models/Led');
 const logController = require('../controllers/LogController');
 const Log = require('../models/Log');
-
 class MainController {
     async index(req, res, next) {
         const sensors = await Sensor.find();
@@ -40,16 +39,18 @@ class MainController {
         ])
 
         // create log
-        const logArr = []
-        for (const key in req.body) {
-            if (Object.hasOwnProperty.call(req.body, key)) {
-                const log = req.body[key];
-                if (Object.keys(log).length > 0)
-                    logArr.push(new Log(log))
-            }
-        }
+        
 
-        await Promise.all(logArr.map(log => log.save()))
+        // const logArr = []
+        // for (const key in req.body) {
+        //     if (Object.hasOwnProperty.call(req.body, key)) {
+        //         const log = req.body[key];
+        //         if (Object.keys(log).length > 0)
+        //             logArr.push(new Log(log))
+        //     }
+        // }
+
+        // await Promise.all(logArr.map(log => log.save()))
         return res.json(await Sensor.find({}))
     }
 }
