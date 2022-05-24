@@ -1,5 +1,6 @@
 const Log = require('../models/Log');
 const dayjs = require('dayjs');
+const Device = require('../models/Device')
 
 
 class LogController {
@@ -25,10 +26,15 @@ class LogController {
     }
 
     async create(req, res, next) {
+        const device = await Device.findOne().where({
+            name: req.body.deviceName
+        })
+
         const now = dayjs().add(7, 'h')
         const log = new Log(
             {
                 ...req.body,
+                deviceId: +device.id,
                 date: new Date(now.toISOString())
             }
         )
