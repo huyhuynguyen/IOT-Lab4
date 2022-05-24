@@ -24,11 +24,6 @@ app.use(express.urlencoded({
 app.use(express.json());
 route(app);
 
-app.listen(port, () => {
+app.listen(port, '0.0.0.0' ,() => {
     console.log(`Example app listening on port ${port}`)
 })
-
-// app.use(function (req, res, next) {
-//     //Capture All 404 errors
-//     res.status(404)
-// });
