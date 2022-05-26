@@ -51,11 +51,9 @@
         }
         return `
             <div class="led__device">
-                <p>${led.name}</p>
-                <div>
-                        <button class="btn-led ${ledObj.className}">
-                            ${ledObj.label}
-                        </button>
+                <p id=${+led.id} class="led-name">${led.name}</p>
+                <div class="led-label__container">
+                    <button class="btn-led ${ledObj.className}">${ledObj.label}</button>
                 </div>
             </div>
         `;
@@ -63,13 +61,40 @@
     sensorsTable.innerHTML = sensorsHTML;
     ledContainer.innerHTML = ledsHTML;
 
-    // MQTTConnect()
+    var sendajax = function(ledId) {
+        var xhttp = new XMLHttpRequest()
 
-    // const btnLeds = document.querySelectorAll('.btn-led')
-    // // console.log(btnLeds);
-    // btnLeds.forEach(btnLed => {
-    //     btnLed.addEventListener('click', (e) => {
-    //         console.log(e.target);
-    //     })
-    // })
+        xhttp.onreadystatechange = function() {
+            if (this.status == 200) {
+                console.log(this.responseText);
+            }
+        }
+
+        xhttp.open('POST', 'http://localhost:5000/main/sensor/change-light-status', true)
+        xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhttp.send(`ledId=${ledId}`);
+    }
+
+    const btnLeds = document.querySelectorAll('.btn-led')
+    btnLeds.forEach(btnLed => {
+        btnLed.addEventListener('click', (e) => {
+            const ledButton = e.target
+            ledId = ledButton.closest('.led__device').querySelector('.led-name').id
+            changeLedStatus(ledButton)
+            sendajax(ledId)
+
+        })
+    })
+
+    function changeLedStatus(ledButton) {
+        const ledButtonClassName = ledButton.className.split(' ')[1]
+        const ledButtonLabel = ledButton.innerText
+        const ledObj = {
+            label: ledButtonLabel == 'Off' ? 'On' : 'Off',
+            className: ledButtonClassName == 'led-off' ? 'led-on' : 'led-off'
+        }
+
+        ledButton.innerText = ledObj.label
+        ledButton.className = ['btn-led', ledObj.className].join(' ')
+    }
 </script>

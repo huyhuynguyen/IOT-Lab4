@@ -14,11 +14,25 @@ class MainController {
         })
     }
 
+    async changeLightStatus(req, res, next) {
+        const ledId = +req.body.ledId
+        const currentLed = await Led.findOne({
+            id: ledId
+        })
+
+        await Led.findOneAndUpdate({
+            id: ledId
+        }, {
+            status: !currentLed.status
+        })
+
+        return 'Successfully'
+    }
+
     async updateTempHumiSensor(req, res, next) {
         const {
             temperature,
             humidity,
-            // light
         } = req.body
 
         await Promise.all([
@@ -31,12 +45,7 @@ class MainController {
                 id: +humidity.id || 0
             }, {
                 value: humidity.value
-            }),
-            // Sensor.findOneAndUpdate({
-            //     id: +light.id || 0
-            // }, {
-            //     value: light.value
-            // }),
+            })
         ])
 
         // create log
@@ -63,13 +72,11 @@ class MainController {
     }
 
     async updateLight(req, res, next) {
-        const {
-            light
-        } = req.body
+        const light = req.body
         await Sensor.findOneAndUpdate({
             id: +light.id || 0
         }, {
-            value: light.value
+            value: +light.value
         })
         const now = dayjs().add(7, 'h')
         const device = await Device.findOne().where({
